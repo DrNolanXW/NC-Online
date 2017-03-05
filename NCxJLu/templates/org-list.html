@@ -57,7 +57,7 @@
 
                 <dl class="des difdes">
                     <dt>
-                        <a href="org-detail-homepage.html">
+                        <a href="{% url 'org_list:org_home' org.id %}">
                             <img width="200" height="120" class="scrollLoading" data-url="/media/{{ org.image }}" src="{% static 'image/pixel.git' %}"/>
                         </a>
                     </dt>

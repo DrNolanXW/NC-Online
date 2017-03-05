@@ -95,3 +95,8 @@
 
 # 分页库：pure_pagination
 # pip: django_pure_pagination
+
+# ajax提交非form数据：
+#        beforeSend:function(xhr, settings){
+#            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+#        },
