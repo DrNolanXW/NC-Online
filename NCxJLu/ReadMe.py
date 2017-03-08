@@ -100,3 +100,8 @@
 #        beforeSend:function(xhr, settings){
 #            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
 #        },
+
+# {{ demo.get_xxxxxx_display }}
+# 用于model中degree设为choices
+# 例如 degree = models.CharField(verbose_name=u'难度',choices=(('cj',u'初级'),('zj',u'中级'),('gj',u'高级'))
+# {{ demo.get_degree_display }}

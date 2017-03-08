@@ -3,13 +3,13 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
 from django.http import JsonResponse
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import CourseOrg,CityDict,Teacher
 from .forms import UserAskForm
 from demos.models import Demo
 from operation.models import UserFavorite
 
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -46,7 +46,7 @@ class OrgListView(View):
             page = request.GET.get('page', 1)
         except PageNotAnInteger:
             page = 1
-        p = Paginator(all_orgs,5, request=request)
+        p = Paginator(all_orgs,3, request=request)
         page_orgs = p.page(page)
 
 
@@ -59,6 +59,7 @@ class OrgListView(View):
             'categroy': categroy,
             'hot_orgs': hot_orgs,
             'sort': sort,
+            'nav': 'org',
         })
 
 
@@ -68,6 +69,7 @@ class AddUserAskView(View):
     def post(self,request):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
+
             # 异步操作
             user_ask = userask_form.save(commit=True)
             return HttpResponse('{"status":"success"}', content_type='application/json')

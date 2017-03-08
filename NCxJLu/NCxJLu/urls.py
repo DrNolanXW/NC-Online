@@ -58,5 +58,8 @@ urlpatterns = [
     url(r'^org_list/', include('organization.urls',namespace='org_list')),
 
     # 配置上传文件的访问处理函数
-    url(r'^media/(?P<path>.*)$',serve, {"document_root":MEDIA_ROOT})
+    url(r'^media/(?P<path>.*)$',serve, {"document_root":MEDIA_ROOT}),
+
+    # 课程相关
+    url(r'^course_list/', include('demos.urls', namespace='course_list')),
 ]

@@ -19,7 +19,8 @@ class Demo(models.Model):
     students = models.IntegerField(default=0,verbose_name=u'学习人数')
     fav_nums = models.IntegerField(default=0,verbose_name=u'收藏人数')
     image = models.ImageField(upload_to='image/%Y/%m',verbose_name=u'视频封面',max_length=100,null=True,blank=True)
-    click_num = models.IntegerField(verbose_name=u'点击数')
+    click_num = models.IntegerField(verbose_name=u'点击数',default=0)
+    category = models.CharField(max_length=100,verbose_name=u'课程类别',null=True,blank=True)
     add_time = models.DateTimeField(default=datetime.now,verbose_name=u'添加时间')
 
     class Meta:
@@ -28,6 +29,14 @@ class Demo(models.Model):
 
     def __unicode__(self):
         return  self.name
+
+    def get_zj_num(self):
+        # 获取章节数
+        return self.lesson_set.all().count()
+
+    def get_learn_user(self):
+        # 获取学习课程用户
+        return  self.usercourse_set.all()[:5]
 
 
 # Demo和Lesson为1对多关系，采用外键形式建立表
