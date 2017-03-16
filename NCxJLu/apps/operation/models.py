@@ -57,7 +57,7 @@ class UserMessage(models.Model):
         verbose_name_plural = verbose_name
 
 
-class Usercourse(models.Model):
+class UserCourse(models.Model):
     user = models.ForeignKey(UserProflie, verbose_name=u'用户')
     demo = models.ForeignKey(Demo, verbose_name=u'课程')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'学习时间')
@@ -65,6 +65,9 @@ class Usercourse(models.Model):
     class Meta:
         verbose_name = u'用户课程'
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return  self.user.name
 
 
 

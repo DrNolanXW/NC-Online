@@ -10,12 +10,12 @@
 		<div class="brief group_list">
                 {% for demo in all_demo.object_list %}
                 <div class="module1_5 box">
-                    <a class="comp-img-box" href="course-detail.html">
+                    <a class="comp-img-box" href="{% url 'course_list:detail' demo.id %}">
 
                         <img width="214" height="195" src="/media/{{ demo.image }}"/>
                     </a>
                     <div class="des">
-                        <a href="course-detail.html"><h2>{{ demo.name }}</h2></a>
+                        <a href="{% url 'course_list:detail' demo.id %}"><h2>{{ demo.name }}</h2></a>
                         <span class="fl">课时：<i class="key">{{ demo.learn_time }}</i></span>
                         <span class="fr">学习人数：{{ demo.students }}</span>
                     </div>

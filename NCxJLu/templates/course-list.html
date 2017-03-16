@@ -35,7 +35,7 @@
                                     <img width="280" height="350" class="scrollLoading" src="/media/{{ demo.image }}"/>
                                 </a>
                                 <div class="des">
-                                    <a href="course-detail.html">
+                                    <a href="{% url 'course_list:detail' demo.id %}">
                                         <h2>{{ demo.name }}</h2>
                                     </a>
                                     <span class="fl">时长：<i class="key">{{ demo.learn_time }}</i></span>

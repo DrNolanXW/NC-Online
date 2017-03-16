@@ -105,3 +105,8 @@
 # 用于model中degree设为choices
 # 例如 degree = models.CharField(verbose_name=u'难度',choices=(('cj',u'初级'),('zj',u'中级'),('gj',u'高级'))
 # {{ demo.get_degree_display }}
+
+#  user_ids = [user.id for user in user_demos]
+# 将user_demos中每个user.id添加到user_ids列表中
+# all_user_courses = UserCourse.objects.filter(user_id__in = user_ids)
+# 用法__in 查询每个等于user_ids元素的值

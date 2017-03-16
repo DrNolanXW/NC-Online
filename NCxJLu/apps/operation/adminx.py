@@ -4,7 +4,7 @@ __date__ = '17-2-8 下午 2:09'
 
 import xadmin
 
-from .models import UserAsk,CourseComments,UserFavorite,UserMessage,Usercourse
+from .models import UserAsk,CourseComments,UserFavorite,UserMessage,UserCourse
 
 class UserAskAdmin(object):
 
@@ -41,7 +41,7 @@ class UserCourseAdmin(object):
     list_filter = ['user', 'demo', 'add_time']
 
 xadmin.site.register(UserAsk,UserAskAdmin)
-xadmin.site.register(Usercourse,UserCourseAdmin)
+xadmin.site.register(UserCourse,UserCourseAdmin)
 xadmin.site.register(UserFavorite,UserFavoriteAdmin)
 xadmin.site.register(UserMessage,UserMessageAdmin)
 xadmin.site.register(CourseComments,CourseCommentsAdmin)

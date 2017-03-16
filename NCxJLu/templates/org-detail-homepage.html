@@ -12,9 +12,9 @@
 
             {% for demo in all_demo %}
                 <div class="module1_5 box">
-                    <a href="course-detail.html"><img width="214" src="/media/{{ demo.image }}"/></a>
+                    <a href="{% url 'course_list:detail' demo.id %}"><img width="214" src="/media/{{ demo.image }}"/></a>
                     <div class="des">
-                        <a href="course-detail.html"><h2>{{ demo.name }}</h2></a>
+                        <a href="{% url 'course_list:detail' demo.id %}"><h2>{{ demo.name }}</h2></a>
                         <span class="fl">课时：<i class="key">{{ demo.learn_time }}</i></span>
                         <span class="fr">参加人数：{{ demo.students }}</span>
                     </div>
