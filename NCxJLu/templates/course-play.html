@@ -1,6 +1,11 @@
+
+
+
+
+
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}公开课视频信息 - NC Online{% endblock %}
+{% block title %}公开课视频 - NC Online{% endblock %}
 {% block custom_bread %}
     <section>
         <div class="wp">
@@ -17,31 +22,13 @@
 {% block content %}
 
     <div id="main">
-    <div class="course-infos">
-        <div class="w pr">
-            <div style="height: 15px" class="path">
-            </div>
-            <div class="hd">
-                <h2 class="l">{{ demo.name }}</h2>
-            </div>
-            <div class="statics clearfix">
-                <div class="static-item ">
-                    <span class="meta-value"><strong>{{ demo.get_degree_display }}</strong></span>
-                    <span class="meta">难度</span>
-                    <em></em>
-                </div>
-                <div class="static-item static-time">
-                    <span class="meta-value">{{ demo.learn_time }}</span>
-                    <span class="meta">时长</span>
-                    <em></em>
-                </div>
-                <div class="static-item">
-                    <span class="meta-value"><strong>{{ demo.students }}</strong></span>
-                    <span class="meta">学习人数</span>
-                    <em></em>
-                </div>
-            </div>
-        </div>
+    <div style="width:1200px;height:675px;margin-left:40px">
+        <video id='example_video_1' class="video-js vjs-defult-skin" controls="" preload="none" width="1200"
+                poster="http://video-js.zencoder.com/ocean-clip.png"
+                data-setup="{}">
+                <source src="/media/{{ video.url }}" type="video/mp4">
+
+        </video>
     </div>
     <div class="course-info-main clearfix w has-progress">
 
@@ -67,7 +54,7 @@
                         <ul class="video">
                         {% for video in lession.get_lesson_video %}
                             <li>
-                                <a target="_blank" href='{% url "course_list:video_play" video.id %}' class="J-media-item studyvideo">{{ video.name }}({{ video.learn_time }})
+                                <a target="_blank" href='/video/3662' class="J-media-item studyvideo">{{ video.name }}({{ video.learn_time }})
                                     <i class="study-state"></i>
                                 </a>
                             </li>
@@ -168,6 +155,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/video-js.min.css' %}">
+
+    <style type="text/css">
+
+	.video-js .vjs-big-play-button{
+		top: 50%;
+		left:50%;
+	}
+    </style>
+{% endblock %}
+{% block custom_js %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/video.min.js' %}">
 {% endblock %}
 
 

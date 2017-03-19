@@ -62,4 +62,10 @@ urlpatterns = [
 
     # 课程相关
     url(r'^course_list/', include('demos.urls', namespace='course_list')),
+
+    # 讲师相关
+    url(r'^teacher/', include('organization.urls', namespace='teacher_list')),
+
+    # 用户中心
+    url(r'^user/', include('users.urls', namespace='user')),
 ]

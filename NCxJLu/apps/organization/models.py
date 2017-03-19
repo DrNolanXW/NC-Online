@@ -58,6 +58,7 @@ class Teacher(models.Model):
     work_company = models.CharField(max_length=200, verbose_name=u'就职公司')
     work_position = models.CharField(max_length=200, verbose_name=u'工作职位')
     point = models.CharField(max_length=100,verbose_name=u'教学特点')
+    age = models.IntegerField(default=0, verbose_name=u'年龄')
     click_num = models.IntegerField(default=0, verbose_name=u'点击数')
     fav_num = models.IntegerField(default=0, verbose_name=u'收藏数')
     add_time = models.DateTimeField(default=datetime.now)

@@ -4,6 +4,8 @@ __date__ = '17-3-7 下午 4:04'
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
+from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import *
@@ -18,7 +20,13 @@ class CouserListView(View):
         all_demo = Demo.objects.all().order_by('-add_time')
         hot_demo = Demo.objects.all().order_by('-click_num')[:3]
 
-        #按热门与参与人数排名
+        # 全局搜索
+        search_keywords = request.GET.get('keywords','')
+        if search_keywords:
+            # 不区分大小写模糊搜索数据库
+            all_demo = all_demo.filter(Q(name__icontains=search_keywords)|Q(desc__icontains=search_keywords))
+
+        # 按热门与参与人数排名
         sort = request.GET.get('sort','')
         if sort == 'students':
             all_demo = all_demo.order_by('-students')
@@ -46,9 +54,18 @@ class CouserDetailView(View):
     def get(self, request,demo_id):
         demo = Demo.objects.get(id = int(demo_id))
 
-        #增加课程点击数
+        # 增加课程点击数
         demo.click_num += 1
         demo.save()
+
+        # 查询课程是否已经收藏
+        demo_has_fav = u'收藏'
+        org_has_fav = u'收藏'
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(fav_id=int(demo_id), user=request.user, fav_type=1):
+                demo_has_fav = u'已收藏'
+            if UserFavorite.objects.filter(fav_id=int(demo.Course_Org.id), user=request.user, fav_type=2):
+                org_has_fav = u'已收藏'
 
         tag = demo.tag
         if tag:
@@ -60,6 +77,8 @@ class CouserDetailView(View):
         return render(request,'course-detail.html',{
             'demo': demo,
             'relate_tag': relate_tag,
+            "demo_has_fav":demo_has_fav,
+            'org_has_fav':org_has_fav,
         })
 
 
@@ -95,6 +114,8 @@ class CouserVideoView(LoginRequiredMixin,View):
     def get(self,request,demo_id):
         demo = Demo.objects.get(id=int(demo_id))
         user_demos = UserCourse.objects.filter(demo=demo)
+        demo.students += 1
+        demo.save
 
         # 查看用户是否关联，如果未关联则建立连接
         user_courses = UserCourse.objects.filter(user=request.user,demo =demo)
@@ -149,4 +170,31 @@ class AddCommentView(View):
         else:
             return HttpResponse('{"status":"fail","msg":"评论失败"}',content_type='application/json')
 
+
+class CouserVideoPlayView(View):
+    # 视频播放页面
+    def get(self,request,video_id):
+        video = Video.objects.get(id=int(video_id))
+        demo = video.lesson.demo
+        user_demos = UserCourse.objects.filter(demo=demo)
+
+        # 查看用户是否关联，如果未关联则建立连接
+        user_courses = UserCourse.objects.filter(user=request.user,demo =demo)
+        if not user_courses:
+            user_course = UserCourse(user=request.user,demo =demo)
+            user_course.save()
+
+        # 取出所有学习该课程的用户，然后查询这些用户学过的课程
+        user_ids = [user.id for user in user_demos]     # user.id的数组
+        all_user_courses = UserCourse.objects.filter(user_id__in = user_ids)
+        course_id = [user_course.id for user_course in all_user_courses] # courser.id的数组
+        courses = Demo.objects.filter(id__in=course_id).order_by("-click_num")
+
+        all_resourse = DemoResource.objects.filter(demo=demo)
+        return render(request,'course-play.html',{
+            'demo':demo,
+            'all_resourse':all_resourse,
+            'relate_courses':courses,
+            'video':video,
+        })
 

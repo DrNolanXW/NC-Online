@@ -110,3 +110,5 @@
 # 将user_demos中每个user.id添加到user_ids列表中
 # all_user_courses = UserCourse.objects.filter(user_id__in = user_ids)
 # 用法__in 查询每个等于user_ids元素的值
+
+# 地址链接参数用request.GET.get('xxxx','')获取

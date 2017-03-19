@@ -45,7 +45,7 @@
 						</ul>
 						<div class="btns">
 							<div class="btn colectgroupbtn"  id="jsLeftBtn">
-                                  收藏
+                                  {{ demo_has_fav }}
                             </div>
                                 <div class="buy btn"><a style="color: white" href="{% url 'course_list:info' demo.id %}">开始学习</a></div>
 						</div>
@@ -81,7 +81,7 @@
                     </a>
 					<div class="btn  notlogin
 					     "data-favid="14" id="jsRightBtn">
-                         已收藏
+                         {{ org_has_fav }}
                     </div>
 					<div class="clear">
 						<ul>
