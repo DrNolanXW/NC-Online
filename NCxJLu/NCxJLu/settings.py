@@ -26,9 +26,9 @@ sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 SECRET_KEY = '&0o#=bo)f8-8x*!4v4x@%n3zh*((#y8u36(=*8^)y@v##%$y&q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_HOST = 'smtp.sina.com'
 EMAIL_PORT = 25
@@ -143,6 +143,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

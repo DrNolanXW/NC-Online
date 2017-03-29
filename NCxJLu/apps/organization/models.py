@@ -69,3 +69,7 @@ class Teacher(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_demo_num(self):
+        # 获取课程数量
+        return self.demo_set.all().count()

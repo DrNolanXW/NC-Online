@@ -18,4 +18,19 @@ urlpatterns = [
 
     # 用户修改密码
     url(r'^update/pwd/$', UpdatePwdView.as_view(),name='update_pwd'),
+
+    # 我的课程
+    url(r'^my/couser/$', MyCouserView.as_view(), name='my_couser'),
+
+    # 我的收藏机构
+    url(r'^my/fav/org/$', MyFavOrgView.as_view(), name='my_fav_org'),
+
+    # 我的收藏课程
+    url(r'^my/fav/course/$', MyFavCourseView.as_view(), name='my_fav_course'),
+
+    # 我的收藏教师
+    url(r'^my/fav/teacher/$', MyFavTeacherView.as_view(), name='my_fav_teacher'),
+
+    # 我的消息
+    url(r'^my/message/$', MyMessageView.as_view(), name='my_message'),
 ]

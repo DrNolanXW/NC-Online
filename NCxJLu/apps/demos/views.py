@@ -113,9 +113,11 @@ class CouserVideoView(LoginRequiredMixin,View):
 
     def get(self,request,demo_id):
         demo = Demo.objects.get(id=int(demo_id))
+        demo.click_num += 1
+        demo.save()
         user_demos = UserCourse.objects.filter(demo=demo)
         demo.students += 1
-        demo.save
+        demo.save()
 
         # 查看用户是否关联，如果未关联则建立连接
         user_courses = UserCourse.objects.filter(user=request.user,demo =demo)
@@ -197,4 +199,5 @@ class CouserVideoPlayView(View):
             'relate_courses':courses,
             'video':video,
         })
+
 

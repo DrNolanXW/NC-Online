@@ -101,7 +101,7 @@
                         <img width="150" height="80" src="/media/{{ teacher.org.image }}"/>
                     </a>
                 </div>
-                <a href="org-detail-homepage.html">
+                <a href="{% url 'org_list:org_home' teacher.org.id %}">
                     <h2 class="center">{{ teacher.org.name }}</h2>
                 </a>
                 <p class="center tell">{{ teacher.org.city }}</p>

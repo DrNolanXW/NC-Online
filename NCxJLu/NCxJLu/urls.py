@@ -20,6 +20,7 @@ from django.views.static import serve
 # 处理静态文件
 from django.views.generic import TemplateView
 from users.views import LoginView
+from users.views import LogoutView
 from users.views import RegisterView
 from users.views import ActiveUserView
 from users.views import ForgetPwdView
@@ -27,7 +28,7 @@ from users.views import ResetView
 from users.views import ModifyPwdView
 from  organization.views import OrgListView
 
-from NCxJLu.settings import MEDIA_ROOT
+from NCxJLu.settings import MEDIA_ROOT,STATIC_ROOT
 
 import xadmin
 
@@ -37,6 +38,8 @@ urlpatterns = [
 
     # 根目录前面不加‘/’
     url(r'^login/',LoginView.as_view(),name='login'),
+
+    url(r'^logout/', LogoutView.as_view(), name='logout'),
 
     url(r'^index/$',TemplateView.as_view(template_name='index.html'),name='index'),
 
@@ -60,6 +63,8 @@ urlpatterns = [
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$',serve, {"document_root":MEDIA_ROOT}),
 
+    url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT}),
+
     # 课程相关
     url(r'^course_list/', include('demos.urls', namespace='course_list')),
 
@@ -68,4 +73,9 @@ urlpatterns = [
 
     # 用户中心
     url(r'^user/', include('users.urls', namespace='user')),
+
 ]
+
+# 配置404
+handler404 = 'users.views.page_no_found'
+handler500 = 'users.views.page_error'

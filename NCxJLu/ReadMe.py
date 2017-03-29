@@ -112,3 +112,10 @@
 # 用法__in 查询每个等于user_ids元素的值
 
 # 地址链接参数用request.GET.get('xxxx','')获取
+
+# 做修改指明那个实例。用instance = xxxxx
+# user_info_form = UserInfoForm(request.POST, instance=request.user)
+
+# 通过验证的字段会放入cleaned_data中
+# image_form = UploadImageForm(request.POST, request.FILES)
+# image = image_form.cleaned_data['image']
